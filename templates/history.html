@@ -1,0 +1,28 @@
+{% extends "base.html"%}
+{% block title %} History {% endblock %}
+
+{% block content %}
+    <header>
+        <nav>
+            <a href="/">Play Game</a>
+            <a href="/history">View History</a>
+        </nav>
+    </header>
+
+    <main>
+        {% if history_of_words|length != 0 %}
+            <ul>
+                {% for scrt_word, result in history_of_words %}
+                    {% if result == 'failed' %}
+                        <li>{{ scrt_word }} <spam style="background-color: rgb(238, 0, 0);color: white;">{{ result }}</spam></li>
+                    {% else %}
+                        <li>{{ scrt_word }} <spam style="background-color: rgb(6, 170, 0);color: white;">{{ result }}</spam></li>  
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No results yet!</p>
+        {% endif %}
+    </main>
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %} Word Game {% endblock %}
+
+{% block content %}
+    <header>
+        <nav>
+            <a href="/">Play game</a>
+            <a href="/history">View History</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Play game</h1>
+
+        <ol>
+            {% for word in words_guessed %}
+                <li>
+                    {% for letter, result in word %}
+                        {% if result == 'correct' %}
+                            <spam style="background-color: rgb(95, 233, 95);">{{ letter }}</spam>
+                        {% elif result == 'wrong' %}
+                            <spam style="background-color: rgb(241, 60, 60);">{{ letter }}</spam>
+                        {% elif result == 'misplaced' %}
+                            <spam style="background-color: rgb(243, 240, 65);">{{ letter }}</spam>
+                        {% endif %}
+                    {% endfor %}
+                </li>
+            {% endfor %}
+        </ol>
+
+        {% if words_guessed|length == 15 %}
+            <p>Out of tries!</p>
+            <form action="/reset_game" method="get">
+                <button type="submit">Play Again?</button>
+            </form>
+        {% elif words_guessed != 0 and guessed_word == secret_word %}
+            <p>You got it!</p>
+            <form action="/reset_game" method="get">
+                <button type="submit">Play Again?</button>
+            </form>
+        {% else %}
+            <form action="/" method="post">
+                <input autocomplete="off" class="input-boxes" type="text" autofocus placeholder="Your 5-letter guess" name="guess">
+                <button type="submit">Guess</button>
+            </form>
+            <br>
+        {% endif %}
+
+        {% if guessed_wrong %}
+            <p style="font-weight: bold; color: red;">Word not recognized</p>
+        {% endif %}
+    </main>
+
+{% endblock %}
