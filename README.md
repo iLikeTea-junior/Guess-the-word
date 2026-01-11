@@ -17,7 +17,7 @@ If you lose and are wondering what the word was, you can also find it in the his
 - HTML
 - CSS
 
-# 💻 Frameworks
+# 🛠️ Frameworks
 - Jinja2
 - Flask
 
